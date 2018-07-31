@@ -43,6 +43,12 @@ main_page_head = '''
             background-color: #EEE;
             cursor: pointer;
         }
+        .movie-tile > button {
+          position:relative;
+          top: 0px;
+          left: 0px;
+          z-index: 1;
+        }
         .scale-media {
             padding-bottom: 56.25%;
             position: relative;
@@ -62,11 +68,14 @@ main_page_head = '''
         $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
             // Remove the src so the player itself gets removed, as this is the only
             // reliable way to ensure the video stops playing in IE
-            $("#trailer-video-container").empty();
+            if (event.target.tagName.toLowerCase() !== 'p'){
+              $("#trailer-video-container").empty();
+              $("#trailer-video-container").css('padding-bottom', '56.25%');
+            }
         });
         // Start playing the video whenever the trailer modal is opened
-        $(document).on('click', '.movie-tile', function (event) {
-            var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
+        $(document).on('click', '.movie-tile > img', function (event) {
+            var trailerYouTubeId = $(this).parent().attr('data-trailer-youtube-id')
             var sourceUrl = 'https://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
             $("#trailer-video-container").empty().append($("<iframe></iframe>", {
               'id': 'trailer-video',
@@ -115,6 +124,7 @@ main_page_content = '''
     <div class="container">
       {movie_tiles}
     </div>
+    {buttons_js}
   </body>
 </html>
 '''
@@ -123,9 +133,34 @@ main_page_content = '''
 # A single movie entry html template
 movie_tile_content = '''
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
-    <img src="{poster_image_url}" width="220" height="220">
+    <img src="{poster_image_url}" width="220" height="342">
     <h2>{movie_title}</h2>
+    <p hidden>{movie_storyline}</p>
+    <button type="button" class="btn btn-info">View storyline</button>
 </div>
+'''
+
+# Additional javascript for buttons
+buttons_js = '''
+    <script>
+      const btns = document.querySelectorAll('.btn');
+      btns.forEach((btn) => btn.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const container = document.querySelector('#trailer-video-container');
+        while(container.firstChild){
+          container.removeChild(container.firstChild);
+        }
+        const p = document.createElement('p');
+        p.textContent = event.target.parentElement.children[2].textContent;
+        p.style.fontSize = '1.5em';
+        p.style.padding = '40px';
+        p.style.margin = '0px 0px';
+
+        container.appendChild(p);
+        container.style.paddingBottom = '0%';
+      }));
+    </script>
 '''
 
 
@@ -145,7 +180,8 @@ def create_movie_tiles_content(movies):
         content += movie_tile_content.format(
             movie_title=movie.title,
             poster_image_url=movie.poster_image_url,
-            trailer_youtube_id=trailer_youtube_id
+            trailer_youtube_id=trailer_youtube_id,
+            movie_storyline=movie.storyline
         )
     return content
 
@@ -156,7 +192,8 @@ def open_movies_page(movies):
 
     # Replace the movie tiles placeholder generated content
     rendered_content = main_page_content.format(
-        movie_tiles=create_movie_tiles_content(movies))
+        movie_tiles=create_movie_tiles_content(movies),
+        buttons_js=buttons_js)
 
     # Output the file
     output_file.write(main_page_head + rendered_content)

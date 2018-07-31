@@ -1,78 +1,82 @@
 #!/usr/bin/python
-
 import fresh_tomatoes
-import webbrowser
-
-class Movie(object):
-    """ This is my custom Movie class.
-
-    Attributes:
-        title: A string representing the title of the movie.
-        storyline: A string representing the storyline of the movie.
-        poster_image: A URL linking to an online image of the movie poster.
-        trailer: A URL linking to a Youtube video of the movie.
-    """
-
-    def __init__(self, title, storyline, poster_image, trailer):
-        """Inits the Movie class with passed in arguments."""
-        self.title = title
-        self.storyline = storyline
-        self.poster_image_url = poster_image
-        self.trailer_youtube_url = trailer
-
-    def show_trailer(self):
-        """Opens the movie trailer/preview in a default web browser."""
-        webbrowser.open(self.trailer_youtube_url)
+import media
 
 
-surface = Movie("Surface",
-               "Surface by Aero Chord",
-               ("https://i.ytimg.com/vi/BrCKvKXvN2c/hqdefault.jpg?"
-               "sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIJCGAFwAQ==&"
-               "rs=AOn4CLC452FeRgiEzd3yROTXGDzIPKLEfQ"),
-               "https://www.youtube.com/watch?v=BrCKvKXvN2c")
+black_panther = media.Movie("Black Panther",
+                            ("After the death of his father, the king of "
+                             "Wakanda, young T'Challa returns home to the "
+                             "isolated high-tech African nation to succeed to "
+                             "the throne and take his rightful place as king. "
+                             "But when a powerful enemy reappears, T'Challa's "
+                             "mettle as king - and Black Panther - is tested "
+                             "when he's drawn into a formidable conflict that "
+                             "puts the fate of Wakanda and the entire world at"
+                             " risk."),
+                            "https://i.ytimg.com/vi_webp/QoTbGtV9Zpk/movieposter.webp",
+                            "https://www.youtube.com/watch?v=xjDjIWPwcPU&t=46s")
 
-guitar_sounds = Movie("Guitar Sounds",
-                        "Guitar Sounds by Ronald Jenkees",
-                        ("https://i.ytimg.com/vi/oLybNuk_Lpo/hqdefault.jpg?"
-                        "sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIJCGAFwAQ==&"
-                        "rs=AOn4CLBw0N7y8XXQhpLWw8mEvRQc-kkNJA"),
-                        "https://www.youtube.com/watch?v=oLybNuk_Lpo")
+avengers = media.Movie("Avengers: Infinity War",
+                       ("An unprecedented cinematic journey ten years in the "
+                        "making and spanning the entire Marvel Cinematic "
+                        "Universe, Marvel Studios' Avengers: Infinity War "
+                        "brings to the screen the ultimate, deadliest showdown"
+                        " of all time. The Avengers and their Super Hero "
+                        "allies must be willing to sacrifice all in an attempt"
+                        " to defeat the powerful Thanos before his blitz of "
+                        "devastation and ruin puts an end to the universe."),
+                       "https://i.ytimg.com/vi_webp/OxzKb4a1Qc4/movieposter.webp",
+                       "https://www.youtube.com/watch?v=OxzKb4a1Qc4")
 
-two_steps = Movie("Two Steps from Hell",
-                    "Two Steps from Hell by Victory",
-                    ("https://i.ytimg.com/vi/hKRUPYrAQoE/hqdefault.jpg?"
-                    "sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIJCGAFwAQ==&"
-                    "rs=AOn4CLDF7m2kNocfRRCsbE7Fz6LjiVuKUg"),
-                    "https://www.youtube.com/watch?v=hKRUPYrAQoE")
+bleeding_steel = media.Movie("Bleeding Steel",
+                             ("In an action-packed drama reminiscent of '80s "
+                              "techno-scifi thrillers, Jackie Chan stars as "
+                              "Lin, a police inspector in modern Hong Kong. "
+                              "While tracking down a deranged, mecha-enhanced "
+                              "villain, Lin discovers that a geneticist's lost"
+                              " bio-chemical invention has been surgically "
+                              "implanted into his missing daughter. With the "
+                              "help of a young hacker, Lin connects the dots "
+                              "between the device that haunts his daughter, hi"
+                              "s enemy's sinister army, and a strange cultural"
+                              " phenomenon called 'Bleeding Steel.'"),
+                             "https://i.ytimg.com/vi_webp/klmJ2a-8EYo/movieposter.webp",
+                             "https://www.youtube.com/watch?v=klmJ2a-8EYo&list=PLHPTxTxtC0iZ24WpHQ6pLuAHz-R-Oj-uf")
 
-superhero = Movie("Superhero",
-                    "Superhero by Unknown Brain",
-                    ("https://i.ytimg.com/vi/LHvYrn3FAgI/hqdefault.jpg?"
-                    "sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIJCGAFwAQ==&"
-                    "rs=AOn4CLBZ2FXirDV74Yp-z_yd6wfC2y9QjA"),
-                    "https://www.youtube.com/watch?v=LHvYrn3FAgI")
+equalizer = media.Movie("The Equalizer",
+                        ("McCall, who has put his mysterious past behind him, "
+                         "comes out of self-retirement to serve vengeance "
+                         "against anyone who would brutalize the helpless."),
+                        "https://i.ytimg.com/vi_webp/vTQIRJzKdJo/movieposter.webp",
+                        "https://www.youtube.com/watch?v=vTQIRJzKdJo&list=PLHPTxTxtC0ial7mOT-Srrguvokjvlcbg7")
 
-shape_of_you_flute = Movie("Shape of You Flute",
-                           "Shape of you remix in Chinese Flute",
-                           ("https://i.ytimg.com/vi/GWZLH7lx6NM/hqdefault.jpg?"
-                           "sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIJCGAFwAQ==&"
-                           "rs=AOn4CLC8zXe39MfMUSudlaS69qTf92b47Q"),
-                           "https://www.youtube.com/watch?v=GWZLH7lx6NM")
+rampage = media.Movie("Rampage",
+                      ("Primatologist Davis (Dwayne Johnson) shares an "
+                       "unshakable bond with George, the extraordinarily "
+                       "intelligent, silverback gorilla who has been in his "
+                       "care since birth."),
+                      "https://i.ytimg.com/vi_webp/iWekPHIesM0/movieposter.webp",
+                      "https://www.youtube.com/watch?v=iWekPHIesM0&t=65s")
 
-monody = Movie("Monody",
-               "Monody by TheFatRat",
-               ("https://i.ytimg.com/vi/B7xai5u_tnk/hqdefault.jpg?"
-               "sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIJCGAFwAQ==&"
-               "rs=AOn4CLApna9G7ns2XgYoi7Lzlvnwy3kY-A"),
-               "https://www.youtube.com/watch?v=B7xai5u_tnk")
+jurassic_world = media.Movie("Jurassic World",
+                             ("The Jurassic World theme park lets guests "
+                              "experience the thrill of witnessing actual "
+                              "dinosaurs, but something ferocious lurks behind"
+                              " the park's attractions - a genetically modifi"
+                              "ed dinosaur with savage capabilities. When the "
+                              "massive creature escapes, chaos erupts across "
+                              "the island. Now it's up to Owen (Chris Pratt) "
+                              "and Claire (Bryce Dallas Howard) to save the "
+                              "park's tourists from an all-out prehistoric "
+                              "assault."),
+                             "https://i.ytimg.com/vi_webp/e6d0VF3TCiQ/movieposter.webp",
+                             "https://www.youtube.com/watch?v=e6d0VF3TCiQ")
 
-
-my_movies = [surface,
-             guitar_sounds,
-             two_steps,
-             superhero,
-             shape_of_you_flute,
-             monody]
+my_movies = [black_panther,
+             avengers,
+             bleeding_steel,
+             equalizer,
+             rampage,
+             jurassic_world]
 
 fresh_tomatoes.open_movies_page(my_movies)
