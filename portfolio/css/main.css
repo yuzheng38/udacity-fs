@@ -1,0 +1,105 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+  font-size: 16px;
+  color: #424242;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+
+header,
+section,
+div {
+  box-sizing: border-box;
+}
+
+.divider {
+  height: 3px;
+  background-color: #7d97ad;
+}
+
+/* Header */
+.header-inner {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.portfolio-logo {
+  width: 100px;
+}
+
+.portfolio-header {
+  float: right;
+  margin-right: 1em;
+  margin-top: 1em;
+}
+
+/* Main */
+.content {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.hero-image {
+  width: 100%;
+  margin: 5px auto;
+}
+
+
+/* Featured work */
+.featured-work-title {
+  color: #7d97ad;
+  font-size: 2em;
+  text-align: center;
+  line-height: 1;
+}
+
+.featured-work {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.figure-image {
+  width: 100%;
+}
+
+.figure-cap {
+  text-align: center;
+  color: #2d3c49;
+}
+
+.figure-header {
+  font-size: 1.5em;
+  color: #2d3c49;
+}
+
+.figure-caption {
+  margin: 5px auto;
+  text-decoration: none;
+}
+
+.figure-caption:visited {
+  color: #2d3c49;
+}
+
+/* Footer */
+.footer-note {
+  font-size: 0.75em;
+  margin-left: 20px;
+  display: none;
+}
