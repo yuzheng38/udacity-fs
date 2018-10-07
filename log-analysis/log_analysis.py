@@ -1,37 +1,34 @@
+#!/usr/bin/env python
 """ FSND Log Analysis
 
 """
 
 import psycopg2
 
-def task1():
+def print_top_three_articles():
     """ What are the most popular three articles of all time? """
-    db = psycopg2.connect(dbname='news')
-    c = db.cursor()
     query = '''
-            select articles.title, top_three.slug_count
+            select articles.title, top_articles.slug_count
             from
-                (select split_part(path, '/', 3) as slug, count(*) as slug_count
+                (select path, count(*) as slug_count
                  from log
                  where log.path like '/article/%'
-                 group by slug
-                 order by slug_count desc
-                 limit 3) top_three,
+                 group by path
+                 order by slug_count desc) top_articles,
                 articles
-            where top_three.slug = articles.slug
-            order by top_three.slug_count desc;
+            where top_articles.path = '/article/' || articles.slug
+            order by top_articles.slug_count desc
+            limit 3;
             '''
-    c.execute(query)
-    res = c.fetchall()
-    db.close()
+    res = execute_query(query)
 
-    for r in res:
-        print(r[0] + ' - ' + str(r[1]) + ' views')
+    if res:
+        print('\nWhat are the most popular three articles of all time?')
+        for r in res:
+            print(r[0] + ' - ' + str(r[1]) + ' views')
 
-def task2():
+def print_most_popular_authors():
     """ Who are the most popular article authors of all time? """
-    db = psycopg2.connect(dbname='news')
-    c = db.cursor()
     query = '''
             select authors.id, authors.name,
                    sum(count_by_slug.cnt) as sum_by_author
@@ -45,17 +42,15 @@ def task2():
             group by authors.id
             order by sum_by_author desc
             '''
-    c.execute(query)
-    res = c.fetchall()
-    db.close()
+    res = execute_query(query)
 
-    for r in res:
-        print(r[1] + ' - ' + str(r[2]) + ' views')
+    if res:
+        print('\nWho are the most popular article authors of all time? ')
+        for r in res:
+            print(r[1] + ' - ' + str(r[2]) + ' views')
 
-def task3():
+def print_days_of_error():
     """ On which days did more than 1% of requests lead to errors? """
-    db = psycopg2.connect(dbname='news')
-    c = db.cursor()
     query = '''
             select ok.day, not_ok.cnt/ok.cnt as error_percentage
             from
@@ -69,19 +64,28 @@ def task3():
                  where status not like '200%'
                 group by day) not_ok
             where not_ok.day = ok.day and
-                  not_ok.cnt / ok.cnt > 0.01;
+                  not_ok.cnt / (ok.cnt + not_ok.cnt) > 0.01;
             '''
-    c.execute(query)
-    res = c.fetchall()
-    db.close()
+    res = execute_query(query)
 
-    for r in res:
-        print('{:%Y-%m-%d} - {:1.3%}'.format(r[0], r[1]))
+    if res:
+        print('\nOn which days did more than 1\% of requests lead to errors?')
+        for r in res:
+            print('{:%Y-%m-%d} - {:1.3%}'.format(r[0], r[1]))
+
+def execute_query(query):
+    try:
+        db = psycopg2.connect(dbname='news')
+        c = db.cursor()
+        c.execute(query)
+        res = c.fetchall()
+        return res
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        db.close()
 
 if __name__ == '__main__':
-    print('\n############## task 1 ###############')
-    task1()
-    print('\n############## task 2 ###############')
-    task2()
-    print('\n############## task 3 ###############')
-    task3()
+    print_top_three_articles()
+    print_most_popular_authors()
+    print_days_of_error()
