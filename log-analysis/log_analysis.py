@@ -5,6 +5,7 @@
 
 import psycopg2
 
+
 def print_top_three_articles():
     """ What are the most popular three articles of all time? """
     query = '''
@@ -26,6 +27,7 @@ def print_top_three_articles():
         print('\nWhat are the most popular three articles of all time?')
         for r in res:
             print(r[0] + ' - ' + str(r[1]) + ' views')
+
 
 def print_most_popular_authors():
     """ Who are the most popular article authors of all time? """
@@ -49,6 +51,7 @@ def print_most_popular_authors():
         for r in res:
             print(r[1] + ' - ' + str(r[2]) + ' views')
 
+
 def print_days_of_error():
     """ On which days did more than 1% of requests lead to errors? """
     query = '''
@@ -69,9 +72,10 @@ def print_days_of_error():
     res = execute_query(query)
 
     if res:
-        print('\nOn which days did more than 1\% of requests lead to errors?')
+        print('\nOn which days did more than 1% of requests lead to errors?')
         for r in res:
             print('{:%Y-%m-%d} - {:1.3%}'.format(r[0], r[1]))
+
 
 def execute_query(query):
     try:
@@ -84,6 +88,7 @@ def execute_query(query):
         print(error)
     finally:
         db.close()
+
 
 if __name__ == '__main__':
     print_top_three_articles()
