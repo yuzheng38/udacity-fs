@@ -10,8 +10,8 @@ from flask import abort, flash, jsonify, redirect, render_template, request, ses
 
 
 STATE = 'XHU4FUHR5X0NQ09TH9CLY6WQH8HCIWG6'  # os.environ['STATE']
-CLIENT_ID = '1055575944505-g3be1f62ajs2rtbr16tfdi54td564k4s.\
-            apps.googleusercontent.com'  # os.environ['CLIENT_ID']
+CLIENT_ID = '1055575944505-g3be1f62ajs2rtbr16tfdi54td564k4s.' \
+            'apps.googleusercontent.com'  # os.environ['CLIENT_ID']
 CLIENT_SECRET = 'Fq9Sfuo0XOWmh-gRYy7rovhe'  # os.environ['CLIENT_SECRET']
 SCOPE = 'openid email'
 REDIRECT_URI = 'http://localhost:5000/login'
