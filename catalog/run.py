@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from catalog_app import app
 
 

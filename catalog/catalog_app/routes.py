@@ -9,8 +9,9 @@ from datetime import datetime
 from flask import abort, flash, jsonify, redirect, render_template, request, session, url_for
 
 
-STATE = 'XHU4FUHR5X0NQ09TH9CLY6WQH8HCIWG6' # os.environ['STATE']
-CLIENT_ID = '1055575944505-g3be1f62ajs2rtbr16tfdi54td564k4s.apps.googleusercontent.com' # os.environ['CLIENT_ID']
+STATE = 'XHU4FUHR5X0NQ09TH9CLY6WQH8HCIWG6'  # os.environ['STATE']
+CLIENT_ID = '1055575944505-g3be1f62ajs2rtbr16tfdi54td564k4s.\
+            apps.googleusercontent.com'  # os.environ['CLIENT_ID']
 CLIENT_SECRET = 'Fq9Sfuo0XOWmh-gRYy7rovhe'  # os.environ['CLIENT_SECRET']
 SCOPE = 'openid email'
 REDIRECT_URI = 'http://localhost:5000/login'
@@ -20,12 +21,13 @@ AUTH_URI = 'https://accounts.google.com/o/oauth2/auth'
 @app.route('/')
 @app.route('/catalog')
 def get_catalog():
-    """Returns the home page. The home page shows most recently created toons."""
+    """Returns the home page that shows most recently created toons."""
     classes = Class.query.order_by(Class.class_name).all()
     toons = Toon.query.order_by(db.desc(Toon.created))
     if toons.count() == 0:
         flash('There are no toons. Create some new toons!', 'warning')
-    return render_template('catalog.html', classes=classes, toons=toons, state=STATE)
+    return render_template('catalog.html', classes=classes,
+                           toons=toons, state=STATE)
 
 
 @app.route('/catalog/<int:class_id>')
@@ -36,16 +38,19 @@ def get_class(class_id):
     clazz = Class.query.get_or_404(class_id)
     toons_in_class = Toon.query.filter_by(toon_class_id=class_id)
     if toons_in_class.count() == 0:
-        flash('There are no toons in this class. Create some new toons!', 'warning')
-    return render_template('catalog.html', classes=classes, toons=toons_in_class, 
-                            title=clazz.class_name, state=STATE)
+        flash('There are no toons in this class. Create some new toons!',
+              'warning')
+    return render_template('catalog.html', classes=classes,
+                           toons=toons_in_class,
+                           title=clazz.class_name, state=STATE)
 
 
 @app.route('/about')
 def about():
     """Returns the about page."""
     classes = Class.query.order_by(Class.class_name).all()
-    return render_template('about.html', classes=classes, title='About', state=STATE)
+    return render_template('about.html', classes=classes,
+                           title='About', state=STATE)
 
 
 @app.route('/account')
@@ -58,7 +63,8 @@ def account():
     classes = Class.query.order_by(Class.class_name).all()
     userinfo = session.get('userinfo')
 
-    return render_template('account.html', classes=classes, title='Account', userinfo=userinfo)
+    return render_template('account.html', classes=classes,
+                           title='Account', userinfo=userinfo)
 
 
 def generate_credentials(auth_code):
@@ -80,7 +86,7 @@ def generate_userinfo():
     """Retrieves user info from Google with access token."""
     userinfo_uri = 'https://www.googleapis.com/oauth2/v2/userinfo'
     credentials = session.get('credentials')
-    
+
     params = {
         'alt': 'json',
         'access_token': credentials['access_token']
@@ -91,15 +97,16 @@ def generate_userinfo():
 
 def generate_auth_url():
     """A helper function that generates auth url."""
-    url = ('{}?scope={}&client_id={}&redirect_uri={}&access_type={}&state={}'
-            '&include_granted_scopes={}&response_type={}').format(AUTH_URI,
-                                                                    SCOPE,
-                                                                    CLIENT_ID,
-                                                                    REDIRECT_URI,
-                                                                    'offline',
-                                                                    session['state'],
-                                                                    'true',
-                                                                    'code')
+    url = ('{}?scope={}&client_id={}&redirect_uri={}'
+           '&access_type={}&state={}&include_granted_scopes={}'
+           '&response_type={}').format(AUTH_URI,
+                                       SCOPE,
+                                       CLIENT_ID,
+                                       REDIRECT_URI,
+                                       'offline',
+                                       session['state'],
+                                       'true',
+                                       'code')
     return url
 
 
@@ -110,7 +117,8 @@ def login():
         session['state'] = STATE
 
     # to guard against CSRF attacks
-    if 'state' in request.args and request.args.get('state') != session['state']:
+    if 'state' in request.args and \
+            request.args.get('state') != session['state']:
         abort(400)
 
     # Present user with the Google Sign in prompt to request authorization code
@@ -143,7 +151,8 @@ def login():
                     password_hash=userinfo['id'])
     db.session.add(player)
     db.session.commit()
-    flash('An account was created for you using your profile.', category='success')
+    flash('An account was created for you using your profile.',
+          category='success')
     return redirect(url_for('get_catalog'))
 
 
@@ -174,11 +183,11 @@ def add_item_to_catalog():
     if not session.get('userinfo'):
         flash('You need to log in.', category='danger')
         abort(403)
-        
+
     classes = Class.query.order_by(Class.class_name).all()
     if request.method == 'GET':
-        return render_template('new_toon.html', classes=classes, 
-                                title='New Toon', state=STATE)
+        return render_template('new_toon.html', classes=classes,
+                               title='New Toon', state=STATE)
 
     name = request.form['toon_name']
     c = request.form['toon_class']
@@ -196,10 +205,12 @@ def get_item(category, item_id):
     """Returns the selected item."""
     classes = Class.query.order_by(Class.class_name).all()
     toon = Toon.query.get_or_404(item_id)
-    return render_template('item.html', classes=classes, title='Toon', toon=toon, state=STATE)
+    return render_template('item.html', classes=classes,
+                           title='Toon', toon=toon, state=STATE)
 
 
-@app.route('/catalog/<category>/items/<int:item_id>/edit', methods=['GET', 'POST'])
+@app.route('/catalog/<category>/items/<int:item_id>/edit',
+           methods=['GET', 'POST'])
 def edit_item(category, item_id):
     """Edits the selected item."""
 
@@ -215,12 +226,14 @@ def edit_item(category, item_id):
         abort(403)
 
     if request.method == 'GET':
-        return render_template('new_toon.html', toon=toon, classes=classes, title='Edit')
+        return render_template('new_toon.html', toon=toon,
+                               classes=classes, title='Edit')
 
     if toon.name == request.form.get('toon_name') and \
-        toon.toon_class_id == request.form.get('toon_class') and \
-        toon.description == request.form.get('toon_desc'):
-        return redirect(url_for('get_item', item_id=item_id, category=toon.toon_class_id))
+            toon.toon_class_id == request.form.get('toon_class') and \
+            toon.description == request.form.get('toon_desc'):
+        return redirect(url_for('get_item', item_id=item_id,
+                        category=toon.toon_class_id))
 
     # field validations are done in HTML
     toon.name = request.form['toon_name']
@@ -229,10 +242,12 @@ def edit_item(category, item_id):
     db.session.add(toon)
     db.session.commit()
     flash('Toon updated successfully!', category='success')
-    return redirect(url_for('get_item', item_id=item_id, category=toon.toon_class_id))
+    return redirect(url_for('get_item', item_id=item_id,
+                    category=toon.toon_class_id))
 
 
-@app.route('/catalog/<category>/items/<int:item_id>/delete', methods=['POST', 'GET'])
+@app.route('/catalog/<category>/items/<int:item_id>/delete',
+           methods=['POST', 'GET'])
 def delete_item(category, item_id):
     """Deletes the selected item from the application database."""
 

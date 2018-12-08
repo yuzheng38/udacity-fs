@@ -4,14 +4,14 @@ from datetime import datetime
 
 class Player(db.Model):
     """ A player is equivalent to a user of the web application
-    
+
         Attributes:
-            email: a player's email when first sign into the application via Oauth
+            email: a player's email when first signed in via Oauth
             username: a player's full name returned by Google Oauth API
             picture: a link to the profile picture returned by Google Oauth API
             password_hash: currently store the user's sub ID returned by Google
             created: timestamp
-    """ 
+    """
     __tablename__ = 'players'
     email = db.Column(db.String(50), index=True, primary_key=True)
     username = db.Column(db.String(100))
@@ -32,7 +32,7 @@ class Player(db.Model):
 
 class Class(db.Model):
     """ A class is a 'type' of gaming character that a user can play
-    
+
         Attributes:
             class_name: name of the class of a game character
             class_info: additional info of the class of a game character
@@ -65,8 +65,10 @@ class Toon(db.Model):
     name = db.Column(db.String(30), nullable=False)
     description = db.Column(db.String(500), nullable=False)
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    toon_class_id = db.Column(db.Integer, db.ForeignKey('classes.id'), nullable=False)
-    toon_player = db.Column(db.String(50), db.ForeignKey('players.email'), nullable=False)
+    toon_class_id = db.Column(db.Integer, db.ForeignKey('classes.id'),
+                              nullable=False)
+    toon_player = db.Column(db.String(50), db.ForeignKey('players.email'),
+                            nullable=False)
 
     @property
     def serialize(self):
