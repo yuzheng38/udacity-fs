@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="content-section">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ userinfo['picture'] }}">
+        <div class="media-body">
+            <h2 class="account-heading">{{ userinfo['name'] }}</h2>
+            <p class="text-secondary">{{ userinfo['email'] }}</p>
+            <a href="{{ userinfo['link']}}" target="_blank">Google Profile</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

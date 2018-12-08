@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+{% block content %}
+    {% for toon in toons %}
+    <article class="media content-section">
+        <img class="article-img rounded-circle" src="{{ toon.player.picture }}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2 text-primary">{{ toon.player.username }}</a>
+                <small class="text-muted">{{ toon.created.strftime('%m-%d-%Y %H-%M') }}</small>
+            </div>
+            <h2>
+                <a class="article-title" href="{{ url_for('get_item', category=toon.toon_class_id, item_id=toon.id) }}">{{toon.name}}</a>
+            </h2>
+            <p class="article-content">{{ toon.description }}</p>
+        </div>
+    </article>
+    {% endfor %}
+{% endblock content %}
