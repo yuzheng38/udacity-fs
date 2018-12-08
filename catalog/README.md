@@ -72,7 +72,7 @@ Note: these packages are included in the Vagrant VM provided by Udacity FSND.
     ```py
     python run.py
     ```
-    and visit <a href="http://localhost:5000">http://localhost:5000</a> to see the application.
+    and visit <a href="http://0.0.0.0:5000">http://0.0.0.0:5000</a> to see the application.
 
 
 ## Reference
