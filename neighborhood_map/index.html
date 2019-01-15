@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <link rel="stylesheet" href="static/css/main.css">
+        <title>Neighborhood Map</title>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="true" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <span class="navbar-brand mb-0 h1">Neighborhood Map</span>
+                <div class="collapse navbar-collapse" id="navbarToggler">
+                    <form class="form-inline-md my-2 my-lg-0">
+                        <div class="input-group">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search-text" data-bind="textInput: searchText, hasFocus: isSelected">
+                            <div class="input-group-btn">
+                                <button class="btn btn-outline-secondary" id="search-go"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="navbar-nav" id="navbar-nav-custom" data-bind="foreach: filterLocations">
+                        <li class="nav-item bg-dark border-bottom" data-bind="visible: visible() && $parent.isSelected(), click: $parent.bounce">
+                            <a href="#" class="nav-link text-light" data-bind="text: title"></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div id="map"></div>
+        </main>
+        <footer>
+
+        </footer>
+        <script src="static/js/lib/knockout-3.4.2.js"></script>
+        <script src="static/js/main.js"></script>
+
+        <!--TODO: Insert your API Key in the below call to load the API.-->
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyB9r52f_kBQXsTZ1iEL0_SgrK8r0L4qaR0&callback=initMap">
+        </script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>
