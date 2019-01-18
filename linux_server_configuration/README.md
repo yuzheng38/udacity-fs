@@ -13,7 +13,7 @@ Note: Google OAuth is not supported at the moment due to authorized redirect URI
 You can visit the project via:
 * Url: <a href="http://ec2-3-86-117-144.compute-1.amazonaws.com/">http://ec2-3-86-117-144.compute-1.amazonaws.com/</a>
 or 
-* IP: <a href="3.86.117.144">3.86.117.144</a>
+* IP: <a href="http://3.86.117.144">3.86.117.144</a>
 
 in Chrome. You will only be able to explore <i>public</i> pages of the app at the moment. 
 
