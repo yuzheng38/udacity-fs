@@ -78,34 +78,5 @@
     <!-- Google api js -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    <!-- <script>
-        const signin_btn = document.querySelector('#signin-btn');
-
-        function login_callback(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('login-callback');
-            const gapi_url = 'https://accounts.google.com/o/oauth2/v2/auth';
-            const scope = 'https://www.googleapis.com/auth/userinfo.profile';
-            const client_id = '1055575944505-g3be1f62ajs2rtbr16tfdi54td564k4s.apps.googleusercontent.com';
-            const redirect_uri = 'http://localhost:5000/login';
-            const access_type = 'offline';
-            const state = '{{ state }}';
-            const include_granted_sceops = true;
-
-            const url = gapi_url + '?' + 'scope=' + scope + '&' + 
-                        'client_id=' + client_id + '&' +
-                        'redirect_uri=' + redirect_uri + '&' + 
-                        'access_type=' + access_type + '&' +
-                        'state=' + state + '&' +
-                        'include_granted_scopes=' + include_granted_sceops + '&' +
-                        'response_type=code';
-
-            window.location.href = url;
-        }
-        if (signin_btn) {
-            signin_btn.addEventListener('click', login_callback);
-        }
-    </script> -->
 </body>
 </html>
