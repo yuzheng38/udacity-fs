@@ -2,7 +2,7 @@
 Udacity fullstack nanodegree project #6
 > In this project, the <a href="https://github.com/yuzheng38/udacity-fs/tree/master/catalog">Catalog</a> web application from project #4 is hosted by an Apache web server on an Amazon AWS Lightsail instance (Ubuntu OS).
 
-Note: Google OAuth is not supported at the moment due to authorized redirect URI and authorized domain policies put in place by Google. Steps I have taken to resolve this so far:
+Note: Google OAuth is not supported at the moment due to authorized redirect URI and authorized domain policies from Google. Steps I have taken to resolve this so far:
 * In <a href="https://console.cloud.google.com/apis/credentials">Google Cloud Console > API & Services > Credentials page</a>, raised a domain verification request. Updated my router to handle the domain verification request from Google. Domain was added successfully after verification.
 > OAuth consent screen is being verified at the moment, after adding a new Authorized redirect URI: http://ec2-3-86-117-144.compute-1.amazonaws.com/login
 
