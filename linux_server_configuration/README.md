@@ -4,7 +4,8 @@ Udacity fullstack nanodegree project #6
 
 Note: Google OAuth is not supported at the moment due to authorized redirect URI and authorized domain policies from Google. Steps I have taken to resolve this so far:
 * In <a href="https://console.cloud.google.com/apis/credentials">Google Cloud Console > API & Services > Credentials page</a>, raised a domain verification request. Updated my router to handle the domain verification request from Google. Domain was added successfully after verification.
-> OAuth consent screen is being verified at the moment, after adding a new Authorized redirect URI: http://ec2-3-86-117-144.compute-1.amazonaws.com/login
+* OAuth consent screen is being verified at the moment, after adding a new Authorized redirect URI: http://ec2-3-86-117-144.compute-1.amazonaws.com/login
+>
 
 
 
@@ -47,15 +48,7 @@ in Chrome. You will only be able to explore <i>public</i> pages of the app at th
     * Key-based authentication for `grader` user. Private key shared in submission note. 
 
 * Firewall
-    ```sh
-    $ sudo ufw default deny incoming
-    $ sudo ufw default allow outgoing
-    $ sudo ufw allow 2200/tcp
-    $ sudo ufw allow www
-    $ sudo ufw allow 123/ntp
-    $ sudo ufw deny 22
-    $ sudo ufw enable
-    ```
+    * allow connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
 * postgresql
     * created user and role `catalog` with permission to create db
 * Local timezone
